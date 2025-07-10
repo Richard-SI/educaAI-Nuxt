@@ -20,6 +20,12 @@ export default defineNuxtConfig({
         adminEmail: 'admin@admin.com',
         professorEmail: 'professor@professor.com',
         studentEmail: 'aluno@aluno.com'
+      },
+      ollama: { 
+        baseUrl: 'http://localhost:11434', // URL padrão do Ollama
+        defaultModel: 'phi3', // Modelo padrão
+        timeout: 30000, // Tempo máximo de espera (30 segundos)
+        systemPrompt: 'Você é um tutor educacional especializado em IA e programação. Seja claro e conciso.' // Prompt padrão
       }
     }
   }

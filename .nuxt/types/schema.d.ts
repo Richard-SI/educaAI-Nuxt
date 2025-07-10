@@ -89,6 +89,16 @@ declare module 'nuxt/schema' {
 
       studentEmail: string,
    },
+
+   ollama: {
+      baseUrl: string,
+
+      defaultModel: string,
+
+      timeout: number,
+
+      systemPrompt: string,
+   },
   }
 }
 declare module 'vue' {

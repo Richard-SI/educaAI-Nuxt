@@ -652,6 +652,12 @@ const _inlineRuntimeConfig = {
       "adminEmail": "admin@admin.com",
       "professorEmail": "professor@professor.com",
       "studentEmail": "aluno@aluno.com"
+    },
+    "ollama": {
+      "baseUrl": "http://localhost:11434",
+      "defaultModel": "phi3",
+      "timeout": 30000,
+      "systemPrompt": "Você é um tutor educacional especializado em IA e programação. Seja claro e conciso."
     }
   }
 };

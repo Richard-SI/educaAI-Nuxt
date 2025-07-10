@@ -23,7 +23,8 @@
           <i class="fas fa-chart-line text-blue-500 mr-2"></i> Seu Progresso
         </h3>
         <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
-          <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full" :style="`width: ${progress}%;`"></div>
+          <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-4 rounded-full" :style="`width: ${progress}%;`">
+          </div>
         </div>
         <div class="grid grid-cols-3 gap-4 text-center">
           <div>
@@ -39,7 +40,8 @@
             <p class="text-xs text-gray-500">PONTOS</p>
           </div>
         </div>
-        <button @click="showProgressDetails" class="mt-6 w-full bg-white text-blue-600 border border-blue-600 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+        <button @click="showProgressDetails"
+          class="mt-6 w-full bg-white text-blue-600 border border-blue-600 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200">
           Ver detalhes
         </button>
       </div>
@@ -50,7 +52,8 @@
           <i class="fas fa-lightbulb text-green-500 mr-2"></i> Recomendações
         </h3>
         <ul class="space-y-3">
-          <li v-for="(rec, index) in recommendations" :key="index" class="flex items-start p-3 hover:bg-gray-50 rounded-lg transition-colors">
+          <li v-for="(rec, index) in recommendations" :key="index"
+            class="flex items-start p-3 hover:bg-gray-50 rounded-lg transition-colors">
             <span :class="`mr-3 text-lg ${rec.completed ? 'text-green-500' : 'text-gray-300'}`">
               <i :class="rec.completed ? 'fas fa-check-circle' : 'far fa-circle'"></i>
             </span>
@@ -63,42 +66,18 @@
             </button>
           </li>
         </ul>
-        <button @click="showAllRecommendations" class="mt-6 w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-md">
+        <button @click="showAllRecommendations"
+          class="mt-6 w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-md">
           Ver todas ({{ recommendations.length }})
         </button>
       </div>
 
       <!-- Chat com IA -->
-      <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
+      <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
           <i class="fas fa-robot text-purple-500 mr-2"></i> Assistente de IA
         </h3>
-        <div ref="chatContainer" class="border border-gray-200 rounded-lg h-64 overflow-y-auto p-4 bg-gray-50 mb-4 space-y-3">
-          <div v-for="(msg, index) in chatMessages" :key="index" :class="`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`">
-            <div :class="`max-w-xs md:max-w-md rounded-lg p-3 ${msg.sender === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`">
-              <p class="text-sm">{{ msg.text }}</p>
-              <p class="text-xs mt-1" :class="msg.sender === 'user' ? 'text-blue-200' : 'text-gray-500'">
-                {{ msg.time }} • {{ msg.sender === 'user' ? 'Você' : 'Assistente' }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="flex">
-          <input
-            v-model="userQuestion"
-            @keyup.enter="sendQuestion"
-            type="text"
-            placeholder="Pergunte algo à IA..."
-            class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
-          >
-          <button
-            @click="sendQuestion"
-            :disabled="!userQuestion"
-            class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-5 rounded-r-lg hover:from-purple-600 hover:to-purple-700 transition-colors duration-200 disabled:opacity-50"
-          >
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
+        <AIChat />
       </div>
     </div>
 
@@ -109,7 +88,8 @@
         <button class="text-blue-600 hover:text-blue-800 font-medium">Ver histórico completo</button>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="item in recentContent" :key="item.id" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-200">
+        <div v-for="item in recentContent" :key="item.id"
+          class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-200">
           <div class="h-40 bg-gray-100 flex items-center justify-center">
             <i :class="`fas ${item.icon} text-4xl ${item.iconColor}`"></i>
           </div>
@@ -146,6 +126,8 @@
 </template>
 
 <script setup>
+
+import AIChat from '~/components/AIChat.vue'
 import { ref, computed, onMounted } from 'vue'
 const { user } = useAuth() // Hook de autenticação
 // Dados do usuário
@@ -210,10 +192,10 @@ const sendQuestion = async () => {
     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
   chatMessages.value.push(userMsg)
-  
+
   const question = userQuestion.value
   userQuestion.value = ''
-  
+
   // Resposta simulada da IA
   setTimeout(() => {
     const aiResponses = {
@@ -223,16 +205,16 @@ const sendQuestion = async () => {
       'como começar': 'Recomendo começar pelo curso "Fundamentos de Python" e depois seguir para "Introdução a Machine Learning". Posso te mostrar o caminho!',
       'obrigado': 'De nada! Estou aqui para ajudar. Se tiver mais dúvidas, é só perguntar!'
     }
-    
-    const response = aiResponses[question.toLowerCase()] || 
+
+    const response = aiResponses[question.toLowerCase()] ||
       `Interessante sua pergunta sobre "${question}". Posso te direcionar para materiais sobre esse tema. Quer que eu busque recursos específicos?`
-    
+
     chatMessages.value.push({
       text: response,
       sender: 'ai',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     })
-    
+
     // Rolagem automática
     scrollChatToBottom()
   }, 1000)
@@ -263,6 +245,7 @@ onMounted(() => {
 .float-hover {
   transition: transform 0.3s ease;
 }
+
 .float-hover:hover {
   transform: translateY(-5px);
 }
