@@ -24,9 +24,15 @@ Plataforma educacional com chat integrado a modelos de IA locais (Llama 3 e Phi-
 - Ollama (para rodar Llama localmente) - [Instalação](https://ollama.ai/)
 - Git
 
+## 🔧 Configuração dos Modelos
+
+- Baixe o modelo Phi-3 (3.8B parâmetros)  -> ollama pull phi3
+- Execute o modelo em um terminal -> ollama run phi3
+
 ## 🛠️ Instalação
 
 ### 1. Clone o repositório
 ```bash
 git clone https://github.com/Richard-SI/educaAI-Nuxt.git
 cd educaAI-Nuxt
+
