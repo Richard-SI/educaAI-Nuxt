@@ -16,6 +16,8 @@ interface _GlobalComponents {
     'Footer': typeof import("../components/Footer.vue")['default']
     'Navbar': typeof import("../components/Navbar.vue")['default']
     'Reply': typeof import("../components/Reply.vue")['default']
+    'ChartsDistribuicaoUsuarios': typeof import("../components/charts/DistribuicaoUsuarios.vue")['default']
+    'ChartsUsoPlataforma': typeof import("../components/charts/UsoPlataforma.vue")['default']
     'ForumNewTopicForm': typeof import("../components/forum/NewTopicForm.vue")['default']
     'ForumTopicCard': typeof import("../components/forum/TopicCard.vue")['default']
     'ForumTopicDetail': typeof import("../components/forum/TopicDetail.vue")['default']
@@ -48,6 +50,8 @@ interface _GlobalComponents {
     'LazyFooter': LazyComponent<typeof import("../components/Footer.vue")['default']>
     'LazyNavbar': LazyComponent<typeof import("../components/Navbar.vue")['default']>
     'LazyReply': LazyComponent<typeof import("../components/Reply.vue")['default']>
+    'LazyChartsDistribuicaoUsuarios': LazyComponent<typeof import("../components/charts/DistribuicaoUsuarios.vue")['default']>
+    'LazyChartsUsoPlataforma': LazyComponent<typeof import("../components/charts/UsoPlataforma.vue")['default']>
     'LazyForumNewTopicForm': LazyComponent<typeof import("../components/forum/NewTopicForm.vue")['default']>
     'LazyForumTopicCard': LazyComponent<typeof import("../components/forum/TopicCard.vue")['default']>
     'LazyForumTopicDetail': LazyComponent<typeof import("../components/forum/TopicDetail.vue")['default']>
@@ -86,6 +90,8 @@ export const AIChat: typeof import("../components/AIChat.vue")['default']
 export const Footer: typeof import("../components/Footer.vue")['default']
 export const Navbar: typeof import("../components/Navbar.vue")['default']
 export const Reply: typeof import("../components/Reply.vue")['default']
+export const ChartsDistribuicaoUsuarios: typeof import("../components/charts/DistribuicaoUsuarios.vue")['default']
+export const ChartsUsoPlataforma: typeof import("../components/charts/UsoPlataforma.vue")['default']
 export const ForumNewTopicForm: typeof import("../components/forum/NewTopicForm.vue")['default']
 export const ForumTopicCard: typeof import("../components/forum/TopicCard.vue")['default']
 export const ForumTopicDetail: typeof import("../components/forum/TopicDetail.vue")['default']
@@ -118,6 +124,8 @@ export const LazyAIChat: LazyComponent<typeof import("../components/AIChat.vue")
 export const LazyFooter: LazyComponent<typeof import("../components/Footer.vue")['default']>
 export const LazyNavbar: LazyComponent<typeof import("../components/Navbar.vue")['default']>
 export const LazyReply: LazyComponent<typeof import("../components/Reply.vue")['default']>
+export const LazyChartsDistribuicaoUsuarios: LazyComponent<typeof import("../components/charts/DistribuicaoUsuarios.vue")['default']>
+export const LazyChartsUsoPlataforma: LazyComponent<typeof import("../components/charts/UsoPlataforma.vue")['default']>
 export const LazyForumNewTopicForm: LazyComponent<typeof import("../components/forum/NewTopicForm.vue")['default']>
 export const LazyForumTopicCard: LazyComponent<typeof import("../components/forum/TopicCard.vue")['default']>
 export const LazyForumTopicDetail: LazyComponent<typeof import("../components/forum/TopicDetail.vue")['default']>
