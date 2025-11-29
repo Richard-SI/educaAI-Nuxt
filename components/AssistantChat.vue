@@ -7,7 +7,7 @@
         <div class="header-info">
           <img src="/educaAI.png" alt="Assistente" class="header-avatar" />
           <div>
-            <strong>EducaAI</strong>
+            <strong>Lumi</strong>
             <div class="status">Online agora</div>
           </div>
         </div>
@@ -86,7 +86,7 @@ const typing = ref(false)
 const scrollArea = ref(null)
 
 const messages = ref([
-  { from: "bot", text: "👋 Olá! Sou o assistente EducaAI. Como posso te ajudar?", type: "options", options: [
+  { from: "bot", text: "👋 Olá! eu sou o Lumi. Como posso te ajudar?", type: "options", options: [
       "Como funciona o EducaAI?",
       "Quais cursos existem?",
       "Quais são os planos e preços?",
