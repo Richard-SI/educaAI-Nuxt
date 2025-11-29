@@ -1,11 +1,15 @@
 <script setup>
+import { ref } from 'vue'
+
 const email = ref('')
 const password = ref('')
+const error = ref(null)
 
 const { setUser } = useAuth()
 
 const handleLogin = () => {
-  // Validação do login
+  error.value = null
+
   if (
     (email.value === 'admin@admin.com' && password.value === '1234') ||
     (email.value === 'professor@professor.com' && password.value === '1234') ||
@@ -14,10 +18,11 @@ const handleLogin = () => {
     setUser(email.value)
     navigateTo('/')
   } else {
-    alert('E-mail ou senha incorretos!')
+    error.value = 'E-mail ou senha incorretos!'
   }
 }
 </script>
+
 
 
 <template>

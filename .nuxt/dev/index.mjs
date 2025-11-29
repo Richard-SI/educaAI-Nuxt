@@ -5,6 +5,7 @@ import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
 import { escapeHtml } from 'file:///Users/richardnunesmachado/Documents/educaai-nuxt/node_modules/@vue/shared/dist/shared.cjs.js';
+import OpenAI from 'file:///Users/richardnunesmachado/Documents/educaai-nuxt/node_modules/openai/index.mjs';
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/richardnunesmachado/Documents/educaai-nuxt/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, joinRelativeURL } from 'file:///Users/richardnunesmachado/Documents/educaai-nuxt/node_modules/ufo/dist/index.mjs';
 import { renderToString } from 'file:///Users/richardnunesmachado/Documents/educaai-nuxt/node_modules/vue/server-renderer/index.mjs';
@@ -1446,12 +1447,14 @@ async function getIslandContext(event) {
   return ctx;
 }
 
+const _lazy_qD4jLb = () => Promise.resolve().then(function () { return assistant_post$1; });
 const _lazy_cqsBDN = () => Promise.resolve().then(function () { return _id_$1; });
 const _lazy_NIW1TV = () => Promise.resolve().then(function () { return index_post$1; });
 const _lazy_dPO4kW = () => Promise.resolve().then(function () { return index$1; });
 const _lazy_u9Zfvy = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
+  { route: '/api/assistant', handler: _lazy_qD4jLb, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics/:id', handler: _lazy_cqsBDN, lazy: true, middleware: false, method: undefined },
   { route: '/api/topics', handler: _lazy_NIW1TV, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics', handler: _lazy_dPO4kW, lazy: true, middleware: false, method: undefined },
@@ -1783,6 +1786,50 @@ const styles = {};
 const styles$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: styles
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const assistant_post = defineEventHandler(async (event) => {
+  var _a, _b;
+  const body = await readBody(event);
+  if (!(body == null ? void 0 : body.message)) {
+    return { reply: "Mensagem inv\xE1lida." };
+  }
+  if (process.env.USE_MOCK === "true") {
+    return {
+      reply: `\u{1F916} (MOCK) Voc\xEA perguntou: "${body.message}".  
+O assistente est\xE1 em modo de teste sem chamar a OpenAI.`
+    };
+  }
+  const client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+  try {
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: `
+Voc\xEA \xE9 o assistente oficial da plataforma EducA\xED.
+Responda somente d\xFAvidas sobre a plataforma, trilhas, login, aulas e suporte.
+Se vier algo fora disso, oriente educadamente o usu\xE1rio.
+`
+        },
+        { role: "user", content: body.message }
+      ]
+    });
+    return {
+      reply: (_b = (_a = completion.choices[0].message) == null ? void 0 : _a.content) != null ? _b : "N\xE3o consegui gerar uma resposta."
+    };
+  } catch (error) {
+    console.error("Assistant API error:", error);
+    return { reply: "Ocorreu um erro ao processar sua solicita\xE7\xE3o." };
+  }
+});
+
+const assistant_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: assistant_post
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const _id_ = defineEventHandler((event) => {

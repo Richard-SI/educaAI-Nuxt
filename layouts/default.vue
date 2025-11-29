@@ -1,3 +1,9 @@
+<script setup>
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
+import AssistantBot from '@/components/AssistantBot.vue'
+</script>
+
 <template>
   <div class="flex flex-col min-h-screen">
     <Navbar />
@@ -5,10 +11,6 @@
       <slot />
     </main>
     <Footer />
+    <AssistantBot /> <!-- garante que não entre no fluxo do layout -->
   </div>
 </template>
-
-<script setup>
-import Navbar from '@/components/Navbar.vue'
-import Footer from '@/components/Footer.vue'
-</script>

@@ -13,6 +13,8 @@ type HydrationStrategies = {
 type LazyComponent<T> = (T & DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }>)
 interface _GlobalComponents {
       'AIChat': typeof import("../components/AIChat.vue")['default']
+    'AssistantBot': typeof import("../components/AssistantBot.vue")['default']
+    'AssistantChat': typeof import("../components/AssistantChat.vue")['default']
     'Footer': typeof import("../components/Footer.vue")['default']
     'Navbar': typeof import("../components/Navbar.vue")['default']
     'Reply': typeof import("../components/Reply.vue")['default']
@@ -47,6 +49,8 @@ interface _GlobalComponents {
     'NuxtIsland': typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
     'NuxtRouteAnnouncer': IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
       'LazyAIChat': LazyComponent<typeof import("../components/AIChat.vue")['default']>
+    'LazyAssistantBot': LazyComponent<typeof import("../components/AssistantBot.vue")['default']>
+    'LazyAssistantChat': LazyComponent<typeof import("../components/AssistantChat.vue")['default']>
     'LazyFooter': LazyComponent<typeof import("../components/Footer.vue")['default']>
     'LazyNavbar': LazyComponent<typeof import("../components/Navbar.vue")['default']>
     'LazyReply': LazyComponent<typeof import("../components/Reply.vue")['default']>
@@ -87,6 +91,8 @@ declare module 'vue' {
 }
 
 export const AIChat: typeof import("../components/AIChat.vue")['default']
+export const AssistantBot: typeof import("../components/AssistantBot.vue")['default']
+export const AssistantChat: typeof import("../components/AssistantChat.vue")['default']
 export const Footer: typeof import("../components/Footer.vue")['default']
 export const Navbar: typeof import("../components/Navbar.vue")['default']
 export const Reply: typeof import("../components/Reply.vue")['default']
@@ -121,6 +127,8 @@ export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const NuxtRouteAnnouncer: IslandComponent<typeof import("../node_modules/nuxt/dist/app/components/server-placeholder")['default']>
 export const LazyAIChat: LazyComponent<typeof import("../components/AIChat.vue")['default']>
+export const LazyAssistantBot: LazyComponent<typeof import("../components/AssistantBot.vue")['default']>
+export const LazyAssistantChat: LazyComponent<typeof import("../components/AssistantChat.vue")['default']>
 export const LazyFooter: LazyComponent<typeof import("../components/Footer.vue")['default']>
 export const LazyNavbar: LazyComponent<typeof import("../components/Navbar.vue")['default']>
 export const LazyReply: LazyComponent<typeof import("../components/Reply.vue")['default']>
