@@ -1,3 +1,6 @@
+
+
+
 <template>
   <div>
 
@@ -76,7 +79,7 @@
 
     <!-- Destaques -->
     <div class="mb-12">
-      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">O Que Você Vai Aprender</h2>
+      <h2 class="text-33xl font-bold text-center text-gray-800 mb-8">O Que Você Vai Aprender</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div 
           v-for="(feature, index) in features" 
@@ -122,47 +125,38 @@
 
     <!-- 🧠 MASCOTE ASSISTENTE -->
     <client-only>
-      <div class="assistant-wrapper">
-
-        <Transition name="fade">
-          <div
-            v-if="showMessage && !openAssistant"
-            class="assistant-bubble"
-          >
-            👋 Olá! Precisa de ajuda? Clique em mim!
-          </div>
-        </Transition>
-
-        <img 
-          src="/educaAI.png"
-          alt="Mascote EducaAI"
-          class="assistant-mascote"
-          @click="toggleAssistant"
-        />
-      </div>
+      <AssistantBot />
     </client-only>
 
-    <!-- Janela do assistente -->
+    <!-- Janela de chat -->
     <AssistantChat v-if="openAssistant" />
+  </div>
+
+  <div>
+    <AssistantBot />
+    <AssistantChat />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import AssistantChat from '@/components/AssistantChat.vue'
+import { ref, onMounted, onUnmounted } from "vue";
+import AssistantBot from "~/components/AssistantBot.vue"
+import AssistantChat from "~/components/AssistantChat.vue"
 
-/* --- Mascote do Assistente --- */
-const openAssistant = ref(false)
-const showMessage = ref(true)
+const openAssistant = ref(false);
 
-function toggleAssistant() {
-  openAssistant.value = true
-  showMessage.value = false
+/* Escuta o evento vindo do AssistantBot.vue */
+function toggleChat() {
+  openAssistant.value = !openAssistant.value;
 }
 
 onMounted(() => {
-  setTimeout(() => showMessage.value = false, 5000)
-})
+  window.addEventListener("assistant-toggle", toggleChat);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("assistant-toggle", toggleChat);
+});
 
 /* --- Dados da Página --- */
 const steps = [
@@ -170,14 +164,14 @@ const steps = [
   { title: "Avaliação", description: "Responda nosso teste de nivelamento" },
   { title: "Plano de Estudos", description: "Receba seu roteiro personalizado" },
   { title: "Comece a Aprender", description: "Acesse conteúdos selecionados" }
-]
+];
 
 const features = [
   { icon: "fas fa-brain", title: "Machine Learning", description: "Aprenda IA" },
   { icon: "fas fa-code", title: "Programação", description: "Python, R, etc" },
   { icon: "fas fa-chart-bar", title: "Análise de Dados", description: "Visualização e BI" },
   { icon: "fas fa-robot", title: "Deep Learning", description: "Redes neurais" }
-]
+];
 
 const testimonials = [
   {
@@ -194,48 +188,9 @@ const testimonials = [
     quote: "O conteúdo personalizado me ajudou demais.",
     rating: 5
   }
-]
+];
 </script>
 
 <style scoped>
-/* --- Mascote --- */
-.assistant-wrapper {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.assistant-mascote {
-  width: 110px;
-  cursor: pointer;
-  animation: float 3s ease-in-out infinite;
-}
-
-.assistant-bubble {
-  background: white;
-  padding: 10px 16px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-  margin-bottom: 10px;
-  max-width: 230px;
-  font-size: 14px;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
-}
-
-/* Fade message */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
+/* Nada aqui interfere com o mascote — tudo está no AssistantBot.vue */
 </style>

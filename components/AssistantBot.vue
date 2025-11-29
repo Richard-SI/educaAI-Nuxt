@@ -1,21 +1,40 @@
 <template>
-    <!-- Não exibe mais mascote — apenas área clicável -->
     <div
+      v-if="mounted"
       class="assistant-bot"
-      @click="onClick"
+      @click="toggleChat"
       role="button"
       aria-label="Abrir assistente"
     >
-      <!-- Área clicável invisível para não duplicar o mascote -->
-      <div class="click-area"></div>
+      <img
+        src="/educaAI.png"
+        alt="Mascote EducaAI"
+        class="assistant-img"
+        @error="onError"
+        decoding="async"
+        loading="lazy"
+      />
     </div>
   </template>
   
   <script setup>
-  function onClick() {
-    window?.dispatchEvent?.(new CustomEvent('assistant-toggle'))
-    console.log('assistant-toggle dispatched')
+  import { ref, onMounted } from 'vue'
+  
+  const mounted = ref(false)
+  
+  function toggleChat() {
+    window.dispatchEvent(new CustomEvent("assistant-open"))
   }
+  
+  function onError(e) {
+    const img = e.target
+    img.style.opacity = "0.5"
+    img.style.filter = "grayscale(1)"
+  }
+  
+  onMounted(() => {
+    mounted.value = true
+  })
   </script>
   
   <style scoped>
@@ -23,17 +42,24 @@
     position: fixed;
     right: 1.25rem;
     bottom: 1.5rem;
-    z-index: 9998; /* abaixo do mascote principal */
-    width: 110px;
-    height: 110px;
+    z-index: 9999;
+    width: 5.2rem;
+    height: 5.2rem;
     cursor: pointer;
   }
   
-  /* Área invisível apenas para capturar clique */
-  .click-area {
+  .assistant-img {
     width: 100%;
     height: 100%;
-    background: transparent;
+    object-fit: contain;
+    animation: float 3s ease-in-out infinite;
+    transition: transform .2s ease;
+  }
+  
+  @keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
   }
   </style>
   

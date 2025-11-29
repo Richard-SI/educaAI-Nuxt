@@ -1,86 +1,99 @@
 <template>
-  <div>
-    <!-- botão flutuante (opcional) omitido se você já tem AssistantBot) -->
-    <div v-if="isOpen" class="chat-window">
+  <transition name="fade">
+    <div v-if="open" class="chat-box">
       <div class="chat-header">
-        <strong>Assistente EducaAI</strong>
-        <button @click="close" aria-label="Fechar">✕</button>
+        Assistente EducaAI
+        <button class="close-btn" @click="open = false">✖</button>
       </div>
 
-      <div class="chat-body" ref="bodyRef">
-        <div v-for="(m,i) in messages" :key="i" :class="m.role==='user'?'msg-user':'msg-assistant'">
-          {{ m.content }}
-        </div>
+      <div class="chat-body">
+        <p>👋 Olá! Como posso ajudar você no site?</p>
       </div>
 
       <div class="chat-footer">
-        <input v-model="input" @keydown.enter="send" placeholder="Pergunte sobre a plataforma..." />
-        <button @click="send">Enviar</button>
+        <input
+          v-model="message"
+          placeholder="Digite sua pergunta..."
+          @keyup.enter="send"
+        />
+        <button @click="send">➤</button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import { useFetch } from '#app'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const isOpen = ref(false)
-const messages = ref([{ role: 'assistant', content: 'Olá! Sou o assistente EducaAI — pergunte sobre a plataforma.' }])
-const input = ref('')
-const bodyRef = ref(null)
+const open = ref(false)
+const message = ref("")
 
-function open() {
-  isOpen.value = true
-  nextTick(() => scrollBottom())
-}
-function close() {
-  isOpen.value = false
-}
-function toggle() {
-  isOpen.value = !isOpen.value
-  if (isOpen.value) nextTick(() => scrollBottom())
+function send() {
+  if (!message.value.trim()) return
+  alert("Pergunta enviada: " + message.value)
+  message.value = ""
 }
 
-function scrollBottom() {
-  if (bodyRef.value) bodyRef.value.scrollTop = bodyRef.value.scrollHeight
+function openChat() {
+  open.value = true
 }
-
-async function send() {
-  const text = input.value && input.value.trim()
-  if (!text) return
-  messages.value.push({ role: 'user', content: text })
-  input.value = ''
-  scrollBottom()
-
-  try {
-    const { data } = await useFetch('/api/assistant', { method: 'POST', body: { message: text } })
-    const reply = data?.value?.reply ?? 'Não consegui responder.'
-    messages.value.push({ role: 'assistant', content: reply })
-    nextTick(() => scrollBottom())
-  } catch {
-    messages.value.push({ role: 'assistant', content: 'Erro ao conectar com o assistente.' })
-    nextTick(() => scrollBottom())
-  }
-}
-
-// listener client-only
-function onToggleEvent() { toggle() }
 
 onMounted(() => {
-  window.addEventListener('assistant-toggle', onToggleEvent)
+  window.addEventListener("assistant-open", openChat)
 })
+
 onUnmounted(() => {
-  window.removeEventListener('assistant-toggle', onToggleEvent)
+  window.removeEventListener("assistant-open", openChat)
 })
 </script>
 
 <style scoped>
-.chat-window { position: fixed; right: 1.25rem; bottom: 7.5rem; width: 320px; max-height: 420px; background:#fff; border-radius:12px; box-shadow:0 18px 50px rgba(2,6,23,.18); display:flex; flex-direction:column; overflow:hidden; z-index:10000; }
-.chat-header{ display:flex; justify-content:space-between; align-items:center; padding:10px; background:linear-gradient(90deg,#0ea5e9,#3b82f6); color:white }
-.chat-body{ padding:12px; overflow-y:auto; flex:1; background:#f8fafc }
-.msg-assistant{ background:white; padding:8px 10px; border-radius:10px; margin-bottom:8px; max-width:85% }
-.msg-user{ background:#e0f2fe; padding:8px 10px; border-radius:10px; margin-bottom:8px; align-self:flex-end; max-width:85% }
-.chat-footer{ display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,0,0,0.04) }
-.chat-footer input{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06) }
+.chat-box {
+  position: fixed;
+  bottom: 7rem;
+  right: 1rem;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 99999;
+}
+
+.chat-header {
+  padding: 10px;
+  background: #4f46e5;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px 12px 0 0;
+}
+
+.chat-body {
+  padding: 12px;
+  min-height: 80px;
+}
+
+.chat-footer {
+  padding: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.chat-footer button {
+  padding: 6px 10px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
 </style>
