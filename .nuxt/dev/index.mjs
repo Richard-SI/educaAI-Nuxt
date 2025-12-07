@@ -1450,6 +1450,7 @@ async function getIslandContext(event) {
 const _lazy_qD4jLb = () => Promise.resolve().then(function () { return assistant_post$1; });
 const _lazy_1Q8vBk = () => Promise.resolve().then(function () { return content_post$1; });
 const _lazy_RsACdb = () => Promise.resolve().then(function () { return generate_post$1; });
+const _lazy_GA_212 = () => Promise.resolve().then(function () { return ollama_post$1; });
 const _lazy_cqsBDN = () => Promise.resolve().then(function () { return _id_$1; });
 const _lazy_NIW1TV = () => Promise.resolve().then(function () { return index_post$1; });
 const _lazy_dPO4kW = () => Promise.resolve().then(function () { return index$1; });
@@ -1459,6 +1460,7 @@ const handlers = [
   { route: '/api/assistant', handler: _lazy_qD4jLb, lazy: true, middleware: false, method: "post" },
   { route: '/api/content', handler: _lazy_1Q8vBk, lazy: true, middleware: false, method: "post" },
   { route: '/api/generate', handler: _lazy_RsACdb, lazy: true, middleware: false, method: "post" },
+  { route: '/api/ollama', handler: _lazy_GA_212, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics/:id', handler: _lazy_cqsBDN, lazy: true, middleware: false, method: undefined },
   { route: '/api/topics', handler: _lazy_NIW1TV, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics', handler: _lazy_dPO4kW, lazy: true, middleware: false, method: undefined },
@@ -1896,6 +1898,27 @@ Retorne apenas o conte\xFAdo pronto.
 const generate_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: generate_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const ollama_post = defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const res = await fetch("http://localhost:11434/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "phi3",
+      prompt: body.prompt,
+      stream: false
+    })
+  });
+  return await res.json();
+});
+
+const ollama_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: ollama_post
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const _id_ = defineEventHandler((event) => {

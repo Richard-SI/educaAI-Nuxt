@@ -143,31 +143,41 @@
         <div class="bg-white p-6 rounded-lg shadow-md border border-green-200">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Gestão de Conteúdo</h3>
           <ul class="space-y-3">
-            <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
-                    <NuxtLink
-                      to="/teacher/content/create"
-                      class="flex items-center p-3 hover:bg-gray-50 rounded-lg"
-                    >
-                      <div class="bg-blue-100 p-2 rounded-full mr-3">
-                        <i class="fas fa-plus text-blue-600"></i>
-                      </div>
-                      <span>Adicionar novo recurso educacional</span>
-                    </NuxtLink>
+          <li>
+            <NuxtLink
+              to="/teacher/content/create"
+              class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition"
+            >
+              <div class="bg-blue-100 p-2 rounded-full">
+                <i class="fas fa-plus text-blue-600"></i>
+              </div>
+              <span class="font-medium">Adicionar novo recurso educacional</span>
+            </NuxtLink>
+          </li>
 
-            </li>
-            <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
-              <div class="bg-purple-100 p-2 rounded-full mr-3">
+          <li>
+            <button
+              class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition text-left"
+            >
+              <div class="bg-purple-100 p-2 rounded-full">
                 <i class="fas fa-edit text-purple-600"></i>
               </div>
-              <span>Editar conteúdos existentes</span>
-            </li>
-            <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
-              <div class="bg-green-100 p-2 rounded-full mr-3">
+              <span class="font-medium">Editar conteúdos existentes</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition text-left"
+            >
+              <div class="bg-green-100 p-2 rounded-full">
                 <i class="fas fa-chart-pie text-green-600"></i>
               </div>
-              <span>Visualizar relatórios de engajamento</span>
-            </li>
-          </ul>
+              <span class="font-medium">Visualizar relatórios de engajamento</span>
+            </button>
+          </li>
+        </ul>
+
           <button class="mt-6 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors duration-200">
             Gerenciar Conteúdo Completo
           </button>
@@ -176,33 +186,62 @@
         <!-- Relatórios Detalhados -->
         <div class="bg-white p-6 rounded-lg shadow-md border border-blue-200">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Relatórios e Análises</h3>
+
           <div class="space-y-4">
-            <div class="p-4 border rounded-lg hover:bg-blue-50 cursor-pointer">
+
+            <!-- Desempenho por Tópico -->
+            <NuxtLink
+              to="/teacher/reports/topic-performance"
+              class="block p-4 border rounded-lg hover:bg-blue-50 transition"
+            >
               <h4 class="font-medium flex items-center">
                 <i class="fas fa-chart-bar text-blue-500 mr-2"></i>
                 Desempenho por Tópico
               </h4>
-              <p class="text-sm text-gray-600 mt-1">Visualize o desempenho médio dos alunos em cada tópico</p>
-            </div>
-            <div class="p-4 border rounded-lg hover:bg-blue-50 cursor-pointer">
+              <p class="text-sm text-gray-600 mt-1">
+                Visualize o desempenho médio dos alunos em cada tópico
+              </p>
+            </NuxtLink>
+
+            <!-- Comparativo de Turmas -->
+            <NuxtLink
+              to="/teacher/reports/class-comparison"
+              class="block p-4 border rounded-lg hover:bg-blue-50 transition"
+            >
               <h4 class="font-medium flex items-center">
                 <i class="fas fa-users text-blue-500 mr-2"></i>
                 Comparativo de Turmas
               </h4>
-              <p class="text-sm text-gray-600 mt-1">Compare o desempenho entre diferentes grupos</p>
-            </div>
-            <div class="p-4 border rounded-lg hover:bg-blue-50 cursor-pointer">
+              <p class="text-sm text-gray-600 mt-1">
+                Compare o desempenho entre diferentes grupos
+              </p>
+            </NuxtLink>
+
+            <!-- Dificuldades Comuns -->
+            <NuxtLink
+              to="/teacher/reports/common-difficulties"
+              class="block p-4 border rounded-lg hover:bg-blue-50 transition"
+            >
               <h4 class="font-medium flex items-center">
                 <i class="fas fa-exclamation-triangle text-blue-500 mr-2"></i>
                 Dificuldades Comuns
               </h4>
-              <p class="text-sm text-gray-600 mt-1">Identifique os tópicos com maior taxa de dificuldade</p>
-            </div>
+              <p class="text-sm text-gray-600 mt-1">
+                Identifique os tópicos com maior taxa de dificuldade
+              </p>
+            </NuxtLink>
+
           </div>
-          <button class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+
+          <!-- Botão Geral -->
+          <NuxtLink
+            to="/teacher/reports/topic-performance"
+            class="mt-6 block w-full text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          >
             Acessar Relatórios Completos
-          </button>
+          </NuxtLink>
         </div>
+
       </div>
     </div>
   </template>

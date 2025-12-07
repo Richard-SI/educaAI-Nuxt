@@ -12,6 +12,9 @@ declare module "nitropack/types" {
     '/api/generate': {
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/generate.post').default>>>>
     }
+    '/api/ollama': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/ollama.post').default>>>>
+    }
     '/api/topics/:id': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/topics/[id]').default>>>>
     }
