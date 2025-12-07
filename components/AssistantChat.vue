@@ -89,7 +89,7 @@ const messages = ref([
   { from: "bot", text: "👋 Olá! eu sou o Lumi. Como posso te ajudar?", type: "options", options: [
       "Como funciona o EducaAI?",
       "Quais cursos existem?",
-      "Quais são os planos e preços?",
+     // "Quais são os planos e preços?",
       "Como falar com suporte?"
   ] }
 ])
@@ -110,11 +110,11 @@ const faq = [
     answer:
       "Você encontra todos os cursos na aba *Catálogo*, com trilhas, PDFs e videoaulas."
   },
-  {
-    keywords: ["plano", "preço", "valores", "assinatura"],
-    answer:
-      "Temos três planos disponíveis: Básico, Estudante e Profissional — cada um com benefícios exclusivos."
-  },
+  //{
+  //  keywords: ["plano", "preço", "valores", "assinatura"],
+   // answer:
+     // "Temos três planos disponíveis: Básico, Estudante e Profissional — cada um com benefícios exclusivos."
+  //},
   {
     keywords: ["suporte", "ajuda", "contato", "atendimento"],
     answer:

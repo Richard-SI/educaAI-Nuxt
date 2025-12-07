@@ -73,12 +73,22 @@
       </div>
 
       <!-- Chat com IA -->
-      <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-          <i class="fas fa-robot text-purple-500 mr-2"></i> Assistente de IA
-        </h3>
-        <AIChat />
-      </div>
+        <!-- Chat com IA -->
+<div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+  <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+    
+    <img 
+      src="../public/educaAI.png" 
+      alt="Lumi - Assistente de IA"
+      class="w-6 h-6 mr-2"
+    />
+
+    Lumi, seu assistente de IA
+  </h3>
+
+  <AIChat />
+</div>
+
     </div>
 
     <!-- Seção de Conteúdos Recentes -->
@@ -154,7 +164,7 @@ const recommendations = ref([
 
 // Chat com IA
 const chatMessages = ref([
-  { text: 'Olá! Sou seu assistente de IA. Como posso te ajudar hoje?', sender: 'ai', time: '21:30' }
+  { text: 'Olá! eu sou o Lumi seu assistente de IA. Como posso te ajudar hoje?', sender: 'ai', time: '21:30' }
 ])
 const userQuestion = ref('')
 const chatContainer = ref(null)
