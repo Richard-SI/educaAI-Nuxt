@@ -187,9 +187,15 @@ const showAllRecommendations = () => {
   navigateTo('/student/recommendations')
 }
 
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const startRecommendation = (rec) => {
-  alert(`Iniciando: ${rec.title}`)
-  // Implementar navegação para o conteúdo
+  if (rec.title === 'Fundamentos de IA') {
+    router.push('/fundamentos-ia')
+     // Implementar navegação para o conteúdo
+  } else {
+    alert(`Iniciando: ${rec.title}`)
+  }
 }
 
 const sendQuestion = async () => {
