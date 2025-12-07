@@ -6,6 +6,12 @@ declare module "nitropack/types" {
     '/api/assistant': {
       'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/assistant.post').default>>>>
     }
+    '/api/content': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/content.post').default>>>>
+    }
+    '/api/generate': {
+      'post': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/generate.post').default>>>>
+    }
     '/api/topics/:id': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../server/api/topics/[id]').default>>>>
     }

@@ -144,10 +144,16 @@
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Gestão de Conteúdo</h3>
           <ul class="space-y-3">
             <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
-              <div class="bg-blue-100 p-2 rounded-full mr-3">
-                <i class="fas fa-plus text-blue-600"></i>
-              </div>
-              <span>Adicionar novo recurso educacional</span>
+                    <NuxtLink
+                      to="/teacher/content/create"
+                      class="flex items-center p-3 hover:bg-gray-50 rounded-lg"
+                    >
+                      <div class="bg-blue-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-plus text-blue-600"></i>
+                      </div>
+                      <span>Adicionar novo recurso educacional</span>
+                    </NuxtLink>
+
             </li>
             <li class="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
               <div class="bg-purple-100 p-2 rounded-full mr-3">

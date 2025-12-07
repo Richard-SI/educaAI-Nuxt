@@ -1448,6 +1448,8 @@ async function getIslandContext(event) {
 }
 
 const _lazy_qD4jLb = () => Promise.resolve().then(function () { return assistant_post$1; });
+const _lazy_1Q8vBk = () => Promise.resolve().then(function () { return content_post$1; });
+const _lazy_RsACdb = () => Promise.resolve().then(function () { return generate_post$1; });
 const _lazy_cqsBDN = () => Promise.resolve().then(function () { return _id_$1; });
 const _lazy_NIW1TV = () => Promise.resolve().then(function () { return index_post$1; });
 const _lazy_dPO4kW = () => Promise.resolve().then(function () { return index$1; });
@@ -1455,6 +1457,8 @@ const _lazy_u9Zfvy = () => Promise.resolve().then(function () { return renderer$
 
 const handlers = [
   { route: '/api/assistant', handler: _lazy_qD4jLb, lazy: true, middleware: false, method: "post" },
+  { route: '/api/content', handler: _lazy_1Q8vBk, lazy: true, middleware: false, method: "post" },
+  { route: '/api/generate', handler: _lazy_RsACdb, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics/:id', handler: _lazy_cqsBDN, lazy: true, middleware: false, method: undefined },
   { route: '/api/topics', handler: _lazy_NIW1TV, lazy: true, middleware: false, method: "post" },
   { route: '/api/topics', handler: _lazy_dPO4kW, lazy: true, middleware: false, method: undefined },
@@ -1830,6 +1834,68 @@ Se vier algo fora disso, oriente educadamente o usu\xE1rio.
 const assistant_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: assistant_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const content_post = defineEventHandler(async (event) => {
+  try {
+    const body = await readBody(event);
+    return { ok: true, id: Math.floor(Math.random() * 1e5), saved: body };
+  } catch (err) {
+    console.error("server/api/content error", err);
+    return createError({ statusCode: 500, statusMessage: "Erro interno" });
+  }
+});
+
+const content_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: content_post
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const generate_post = defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const prompt = `
+Voc\xEA \xE9 um professor experiente. Crie um recurso educacional did\xE1tico:
+
+T\xEDtulo: ${body.title}
+Tipo: ${body.type || "texto"}
+Tema/Palavras-chave: ${body.theme}
+Dura\xE7\xE3o estimada: ${body.duration || "-"}
+Descri\xE7\xE3o: ${body.description || "-"}
+
+Estruture em:
+- Introdu\xE7\xE3o curta
+- T\xF3picos explicados
+- Passos pr\xE1ticos
+- 2 exerc\xEDcios com respostas
+
+Retorne apenas o conte\xFAdo pronto.
+  `;
+  try {
+    const response = await $fetch("http://localhost:11434/api/generate", {
+      method: "POST",
+      body: {
+        model: "llama3",
+        // pode trocar se usar outro modelo
+        prompt,
+        stream: false
+      }
+    });
+    return {
+      ok: true,
+      text: response.response
+    };
+  } catch (err) {
+    console.error("Erro ao chamar Ollama:", err);
+    return {
+      ok: false,
+      error: "Erro ao conectar ao Ollama local"
+    };
+  }
+});
+
+const generate_post$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: generate_post
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const _id_ = defineEventHandler((event) => {
